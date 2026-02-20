@@ -16,7 +16,7 @@ It combines:
 - **CARv2** provides a standard container for content-addressed blocks and optional indexes.
 - **Catalog is a derivative view** (fast lookups), but can be rebuilt from pack files.
 
-**Specs:** See [`SPEC.md`](./SPEC.md) for the normative storage format and semantics.
+**Specs:** See [`SPEC.MD`](./SPEC.MD) for the normative storage format and semantics.
 
 ---
 
@@ -174,7 +174,7 @@ See `SPEC.md` for the full security model and validation rules.
 ## Contributing
 
 - Follow `AGENT.MD` for workflow expectations (TDD, coverage, commands).
-- Changes that impact on-disk format MUST update `SPEC.md` and bump format version fields.
+- Changes that impact on-disk format MUST update `SPEC.MD` and bump format version fields.
 
 ---
 
