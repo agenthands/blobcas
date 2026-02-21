@@ -70,18 +70,23 @@ func main() {
 
 	cfg := blobcas.Config{
 		Dir: "./repo",
-		Pack: blobcas.PackConfig{
+		Chunking: core.ChunkingConfig{
+			Min: 64,
+			Avg: 1024,
+			Max: 4096,
+		},
+		Pack: core.PackConfig{
 			TargetPackBytes:    512 << 20, // configurable
 			MaxPackBytes:       0,         // 0 => 2*TargetPackBytes
 			RequireIndexOnSeal: true,
 			SealFsync:          true,
 			FsyncEveryBytes:    64 << 20, // optional periodic fsync
 		},
-		GC: blobcas.GCConfig{
+		GC: core.GCConfig{
 			Enabled:        true,
 			DefaultRootTTL: 30 * 24 * time.Hour, // configurable default retention
 		},
-		Transform: blobcas.TransformConfig{
+		Transform: core.TransformConfig{
 			Name:      "zstd",
 			ZstdLevel: 3,
 		},
@@ -93,7 +98,7 @@ func main() {
 	}
 	defer s.Close()
 
-	key := blobcas.Key{Namespace: "http", ID: "req-000001"}
+	key := core.Key{Namespace: "http", ID: "req-000001"}
 
 	canonical := bytes.NewReader([]byte(`{"hello":"world"}`)) // decoded bytes recommended
 
@@ -137,6 +142,12 @@ Per-Put precedence (normative; see SPEC.md):
 ### Pack sizing (configurable)
 
 `cfg.Pack.TargetPackBytes` controls rotation size. `cfg.Pack.MaxPackBytes` is a hard ceiling (defaults to `2 * TargetPackBytes`).
+
+---
+
+## Examples
+
+For complete, runnable demonstrations of basic read/write operations, structural deduplication with FastCDC, and Garbage Collection retention policies see the [examples directory](./examples/).
 
 ---
 

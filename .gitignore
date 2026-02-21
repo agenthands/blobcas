@@ -30,3 +30,9 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+# Local binaries and test output
+blobcas-*
+*.log
+repo/
+bin/
